@@ -6,7 +6,7 @@ const COLLECTION_FIELDS = `
   image { url altText width height }
 `
 
-export async function getCollections(first = 20): Promise<ShopifyCollection[]> {
+export async function getCollections(first = 20, locale?: string): Promise<ShopifyCollection[]> {
   const data = await shopifyFetch<{ collections: { nodes: ShopifyCollection[] } }>({
     query: `
       query GetCollections($first: Int!) {
@@ -17,11 +17,12 @@ export async function getCollections(first = 20): Promise<ShopifyCollection[]> {
     `,
     variables: { first },
     revalidate: 3600,
+    locale,
   })
   return data.collections.nodes
 }
 
-export async function getCollection(handle: string): Promise<ShopifyCollection | null> {
+export async function getCollection(handle: string, locale?: string): Promise<ShopifyCollection | null> {
   const data = await shopifyFetch<{ collection: ShopifyCollection | null }>({
     query: `
       query GetCollection($handle: String!) {
@@ -36,6 +37,7 @@ export async function getCollection(handle: string): Promise<ShopifyCollection |
     `,
     variables: { handle },
     revalidate: 3600,
+    locale,
   })
   return data.collection
 }

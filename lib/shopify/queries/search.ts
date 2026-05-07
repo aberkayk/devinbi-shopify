@@ -10,7 +10,8 @@ const PRODUCT_SUMMARY = `
 export async function searchProducts(
   query: string,
   first = 24,
-  after?: string
+  after?: string,
+  locale?: string
 ): Promise<{ products: ShopifyProduct[]; pageInfo: PageInfo }> {
   const data = await shopifyFetch<{
     search: { nodes: ShopifyProduct[]; pageInfo: PageInfo }
@@ -25,6 +26,7 @@ export async function searchProducts(
     `,
     variables: { query, first, after },
     cache: 'no-store',
+    locale,
   })
   return { products: data.search.nodes, pageInfo: data.search.pageInfo }
 }

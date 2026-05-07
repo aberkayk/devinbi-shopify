@@ -21,7 +21,7 @@ const PRODUCT_FIELDS = `
   }
 `
 
-export async function getProduct(handle: string): Promise<ShopifyProduct | null> {
+export async function getProduct(handle: string, locale?: string): Promise<ShopifyProduct | null> {
   const data = await shopifyFetch<{ product: ShopifyProduct | null }>({
     query: `
       query GetProduct($handle: String!) {
@@ -30,11 +30,12 @@ export async function getProduct(handle: string): Promise<ShopifyProduct | null>
     `,
     variables: { handle },
     revalidate: 3600,
+    locale,
   })
   return data.product
 }
 
-export async function getProducts(first = 12): Promise<ShopifyProduct[]> {
+export async function getProducts(first = 12, locale?: string): Promise<ShopifyProduct[]> {
   const data = await shopifyFetch<{ products: { nodes: ShopifyProduct[] } }>({
     query: `
       query GetProducts($first: Int!) {
@@ -45,6 +46,7 @@ export async function getProducts(first = 12): Promise<ShopifyProduct[]> {
     `,
     variables: { first },
     revalidate: 3600,
+    locale,
   })
   return data.products.nodes
 }
@@ -52,7 +54,8 @@ export async function getProducts(first = 12): Promise<ShopifyProduct[]> {
 export async function getProductsByCollection(
   handle: string,
   first = 24,
-  after?: string
+  after?: string,
+  locale?: string
 ): Promise<{ products: ShopifyProduct[]; pageInfo: PageInfo }> {
   const data = await shopifyFetch<{
     collection: { products: { nodes: ShopifyProduct[]; pageInfo: PageInfo } } | null
@@ -69,6 +72,7 @@ export async function getProductsByCollection(
     `,
     variables: { handle, first, after },
     revalidate: 3600,
+    locale,
   })
   const col = data.collection
   if (!col) return { products: [], pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null } }
