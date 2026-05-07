@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "collections": "Koleksiyonlar",
+    "search": "Ara",
+    "cart": "Sepet",
+    "account": "Hesabım"
+  },
+  "product": {
+    "addToCart": "Sepete Ekle",
+    "outOfStock": "Stokta Yok",
+    "price": "Fiyat",
+    "variants": "Seçenekler",
+    "relatedProducts": "Benzer Ürünler"
+  },
+  "cart": {
+    "empty": "Sepetiniz boş",
+    "total": "Toplam",
+    "subtotal": "Ara toplam",
+    "checkout": "Ödemeye Geç",
+    "remove": "Kaldır",
+    "quantity": "Adet",
+    "continueShopping": "Alışverişe Devam Et"
+  },
+  "account": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap",
+    "orders": "Siparişlerim",
+    "email": "E-posta",
+    "password": "Şifre",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "noOrders": "Henüz siparişiniz yok"
+  },
+  "search": {
+    "placeholder": "Ürün ara...",
+    "noResults": "Sonuç bulunamadı",
+    "results": "{count} ürün bulundu"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "retry": "Tekrar Dene",
+    "close": "Kapat",
+    "save": "Kaydet"
+  }
+}

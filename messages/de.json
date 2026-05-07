@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "collections": "Kollektionen",
+    "search": "Suche",
+    "cart": "Warenkorb",
+    "account": "Mein Konto"
+  },
+  "product": {
+    "addToCart": "In den Warenkorb",
+    "outOfStock": "Nicht vorrätig",
+    "price": "Preis",
+    "variants": "Optionen",
+    "relatedProducts": "Ähnliche Produkte"
+  },
+  "cart": {
+    "empty": "Ihr Warenkorb ist leer",
+    "total": "Gesamt",
+    "subtotal": "Zwischensumme",
+    "checkout": "Zur Kasse",
+    "remove": "Entfernen",
+    "quantity": "Menge",
+    "continueShopping": "Weiter einkaufen"
+  },
+  "account": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "orders": "Meine Bestellungen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "noOrders": "Sie haben noch keine Bestellungen"
+  },
+  "search": {
+    "placeholder": "Produkte suchen...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "results": "{count} Produkte gefunden"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Etwas ist schiefgelaufen",
+    "retry": "Erneut versuchen",
+    "close": "Schließen",
+    "save": "Speichern"
+  }
+}
