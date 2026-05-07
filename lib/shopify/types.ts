@@ -3,6 +3,7 @@ export type ShopifyFetchOptions = {
   variables?: Record<string, unknown>
   cache?: RequestCache
   revalidate?: number
+  locale?: string
 }
 
 export type ShopifyResponse<T> = {

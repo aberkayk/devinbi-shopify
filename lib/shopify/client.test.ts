@@ -28,6 +28,18 @@ describe('shopifyFetch', () => {
     )
   })
 
+  it('injects @inContext directive when locale is provided', async () => {
+    const mockFetch = vi.mocked(fetch)
+    mockFetch.mockResolvedValueOnce(
+      new Response(JSON.stringify({ data: { test: true } }), { status: 200 })
+    )
+
+    await shopifyFetch({ query: 'query GetProduct($handle: String!) { product { title } }', locale: 'de' })
+
+    const body = JSON.parse((mockFetch.mock.calls[0][1] as RequestInit).body as string)
+    expect(body.query).toContain('@inContext(language: DE, country: DE)')
+  })
+
   it('throws on GraphQL errors', async () => {
     const mockFetch = vi.mocked(fetch)
     mockFetch.mockResolvedValueOnce(
