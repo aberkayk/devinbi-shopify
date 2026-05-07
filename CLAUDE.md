@@ -1,27 +1,27 @@
 @AGENTS.md
 
-# Proje: Shopify Storefront Frontend
+# Project: Shopify Storefront Frontend
 
-Shopify Storefront GraphQL API'yi backend olarak kullanan Next.js 16 e-ticaret frontendu.
+A Next.js 16 e-commerce frontend using Shopify Storefront GraphQL API as the backend.
 
-- **Mağaza:** `devinbi.myshopify.com`
+- **Store:** `devinbi.myshopify.com`
 - **Stack:** Next.js 16, React 19, Tailwind CSS v4, TypeScript, shadcn/ui
-- **Tasarım dokümanı:** `docs/superpowers/specs/2026-05-07-shopify-storefront-design.md`
+- **Design doc:** `docs/superpowers/specs/2026-05-07-shopify-storefront-design.md`
 
-## Temel Prensipler
+## Core Principles
 
-- Shopify token **asla** client'a çıkmaz — tüm API çağrıları Server Components veya Server Actions içinde yapılır
-- Sepet verisi Shopify'da saklanır; sadece `cartId` `httpOnly` cookie'de tutulur
-- Optimistic UI için React 19 `useOptimistic` kullanılır
-- Cache stratejisi: statik sayfalar ISR, dinamik sayfalar (sepet, hesap) `no-store`
+- The Shopify token **never** reaches the client — all API calls happen inside Server Components or Server Actions
+- Cart data lives on Shopify; only the `cartId` is stored in an `httpOnly` cookie
+- Use React 19 `useOptimistic` for optimistic UI feedback
+- Cache strategy: static pages use ISR, dynamic pages (cart, account) use `cache: 'no-store'`
 
-## Skill Kullanım Rehberi
+## Skill Usage Guide
 
-| Skill | Ne zaman kullan |
-|-------|----------------|
-| `superpowers:brainstorming` | Yeni bir özellik veya sayfa eklemeden önce |
-| `frontend-design:frontend-design` | Sayfa ve komponent tasarımı yaparken |
-| `superpowers:writing-plans` | Implementasyona başlamadan önce plan yaz |
-| `superpowers:test-driven-development` | Cart, auth gibi kritik iş mantığı için |
-| `superpowers:systematic-debugging` | Beklenmedik davranış veya hata ayıklarken |
-| `superpowers:verification-before-completion` | Görevi tamamladığını söylemeden önce |
+| Skill | When to use |
+|-------|-------------|
+| `superpowers:brainstorming` | Before adding any new feature or page |
+| `frontend-design:frontend-design` | When designing pages and components |
+| `superpowers:writing-plans` | Before starting implementation — write a plan first |
+| `superpowers:test-driven-development` | For critical business logic (cart, auth) |
+| `superpowers:systematic-debugging` | When debugging unexpected behavior or errors |
+| `superpowers:verification-before-completion` | Before claiming a task is done |
