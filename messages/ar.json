@@ -6,12 +6,26 @@
     "cart": "السلة",
     "account": "حسابي"
   },
+  "home": {
+    "featuredProducts": "المنتجات المميزة",
+    "shopCollections": "تسوق المجموعات",
+    "viewAll": "عرض الكل"
+  },
+  "collection": {
+    "allCollections": "جميع المجموعات",
+    "noProducts": "لا توجد منتجات في هذه المجموعة.",
+    "loadMore": "تحميل المزيد",
+    "products": "منتجات"
+  },
   "product": {
     "addToCart": "أضف إلى السلة",
-    "outOfStock": "غير متوفر",
+    "outOfStock": "نفد المخزون",
     "price": "السعر",
     "variants": "الخيارات",
-    "relatedProducts": "منتجات مشابهة"
+    "relatedProducts": "منتجات مشابهة",
+    "gallery": "صور المنتج",
+    "from": "ابتداءً من",
+    "description": "الوصف"
   },
   "cart": {
     "empty": "سلتك فارغة",
@@ -31,11 +45,11 @@
     "password": "كلمة المرور",
     "firstName": "الاسم الأول",
     "lastName": "اسم العائلة",
-    "noOrders": "ليس لديك طلبات بعد"
+    "noOrders": "لا توجد لديك طلبات بعد"
   },
   "search": {
-    "placeholder": "ابحث عن المنتجات...",
-    "noResults": "لم يتم العثور على نتائج",
+    "placeholder": "ابحث عن منتجات...",
+    "noResults": "لا توجد نتائج",
     "results": "تم العثور على {count} منتج"
   },
   "common": {

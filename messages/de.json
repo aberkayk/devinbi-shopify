@@ -6,12 +6,26 @@
     "cart": "Warenkorb",
     "account": "Mein Konto"
   },
+  "home": {
+    "featuredProducts": "Empfohlene Produkte",
+    "shopCollections": "Kollektionen entdecken",
+    "viewAll": "Alle anzeigen"
+  },
+  "collection": {
+    "allCollections": "Alle Kollektionen",
+    "noProducts": "Keine Produkte in dieser Kollektion.",
+    "loadMore": "Mehr laden",
+    "products": "Produkte"
+  },
   "product": {
     "addToCart": "In den Warenkorb",
-    "outOfStock": "Nicht vorrätig",
+    "outOfStock": "Nicht verfügbar",
     "price": "Preis",
     "variants": "Optionen",
-    "relatedProducts": "Ähnliche Produkte"
+    "relatedProducts": "Ähnliche Produkte",
+    "gallery": "Produktbilder",
+    "from": "Ab",
+    "description": "Beschreibung"
   },
   "cart": {
     "empty": "Ihr Warenkorb ist leer",
@@ -39,7 +53,7 @@
     "results": "{count} Produkte gefunden"
   },
   "common": {
-    "loading": "Lädt...",
+    "loading": "Wird geladen...",
     "error": "Etwas ist schiefgelaufen",
     "retry": "Erneut versuchen",
     "close": "Schließen",
