@@ -36,22 +36,27 @@ function initialSelected(options: ProductOption[], variants: ProductVariant[]): 
 }
 
 export function VariantSelector({ options, variants, onVariantChange }: Props) {
-  if (options.length === 1 && options[0].name === 'Title' && options[0].values[0] === 'Default Title') {
-    return null
-  }
-
   const [selected, setSelected] = useState<Record<string, string>>(() =>
     initialSelected(options, variants)
   )
 
   const handleSelect = useCallback(
     (name: string, value: string) => {
-      const next = { ...selected, [name]: value }
-      setSelected(next)
-      onVariantChange(findVariant(variants, next))
+      setSelected((prev) => {
+        const next = { ...prev, [name]: value }
+        onVariantChange(findVariant(variants, next))
+        return next
+      })
     },
-    [selected, variants, onVariantChange]
+    [variants, onVariantChange]
   )
+
+  const isSingleVariant =
+    options.length === 1 &&
+    options[0].name === 'Title' &&
+    options[0].values[0] === 'Default Title'
+
+  if (isSingleVariant) return null
 
   return (
     <div className="space-y-4">
@@ -65,7 +70,7 @@ export function VariantSelector({ options, variants, onVariantChange }: Props) {
               return (
                 <button
                   key={value}
-                  onClick={() => available && handleSelect(option.name, value)}
+                  onClick={() => handleSelect(option.name, value)}
                   disabled={!available}
                   className={`px-3 py-1.5 text-sm border rounded-md transition-colors ${
                     active
