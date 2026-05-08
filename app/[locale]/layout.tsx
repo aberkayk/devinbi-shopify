@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { locales, isRtl, type Locale } from '@/i18n/config'
+import { Navbar } from '@/components/layout/Navbar'
 import '../globals.css'
 
 export function generateStaticParams() {
@@ -24,9 +25,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={dir}>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Navbar locale={locale} />
+          <div className="flex-1">{children}</div>
         </NextIntlClientProvider>
       </body>
     </html>
