@@ -7,9 +7,9 @@ vi.mock('next/image', () => ({
   default: ({
     src,
     alt,
-    fill,
-    sizes,
-    priority,
+    fill: _fill,
+    sizes: _sizes,
+    priority: _priority,
     ...rest
   }: React.ImgHTMLAttributes<HTMLImageElement> & {
     fill?: boolean
