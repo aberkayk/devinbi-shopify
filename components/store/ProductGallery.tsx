@@ -14,7 +14,7 @@ export function ProductGallery({ images, title }: Props) {
 
   if (!images.length) {
     return (
-      <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-sm">
+      <div className="aspect-square bg-muted rounded-lg flex items-center justify-center text-muted-foreground text-sm">
         No image
       </div>
     )
@@ -24,7 +24,7 @@ export function ProductGallery({ images, title }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="aspect-square relative overflow-hidden rounded-lg bg-gray-100">
+      <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
         <Image
           src={active.url}
           alt={active.altText ?? title}
@@ -42,7 +42,7 @@ export function ProductGallery({ images, title }: Props) {
               onClick={() => setActiveIndex(i)}
               aria-label={image.altText ?? `${title} ${i + 1}`}
               className={`relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border-2 transition-colors ${
-                i === activeIndex ? 'border-gray-900' : 'border-transparent hover:border-gray-300'
+                i === activeIndex ? 'border-primary' : 'border-transparent hover:border-border'
               }`}
             >
               <Image

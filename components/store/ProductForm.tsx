@@ -35,7 +35,7 @@ export function ProductForm({ product }: Props) {
       <button
         disabled={!available}
         data-variant-id={selectedVariant?.id}
-        className="w-full py-3 px-6 bg-gray-900 text-white font-medium rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
+        className="w-full py-3 px-6 bg-primary text-primary-foreground font-medium rounded-lg disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed hover:bg-primary/80 transition-colors"
       >
         {available ? t('addToCart') : t('outOfStock')}
       </button>

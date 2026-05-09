@@ -62,7 +62,7 @@ export function VariantSelector({ options, variants, onVariantChange }: Props) {
     <div className="space-y-4">
       {options.map((option) => (
         <div key={option.id}>
-          <p className="text-sm font-medium text-gray-900 mb-2">{option.name}</p>
+          <p className="text-sm font-medium text-foreground mb-2">{option.name}</p>
           <div className="flex flex-wrap gap-2">
             {option.values.map((value) => {
               const available = isAvailable(variants, selected, option.name, value)
@@ -74,10 +74,10 @@ export function VariantSelector({ options, variants, onVariantChange }: Props) {
                   disabled={!available}
                   className={`px-3 py-1.5 text-sm border rounded-md transition-colors ${
                     active
-                      ? 'border-gray-900 bg-gray-900 text-white'
+                      ? 'border-primary bg-primary text-primary-foreground'
                       : available
-                      ? 'border-gray-300 hover:border-gray-900'
-                      : 'border-gray-200 text-gray-400 cursor-not-allowed line-through'
+                      ? 'border-border hover:border-primary'
+                      : 'border-border text-muted-foreground cursor-not-allowed line-through'
                   }`}
                 >
                   {value}

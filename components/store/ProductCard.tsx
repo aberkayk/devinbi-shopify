@@ -16,7 +16,7 @@ export function ProductCard({ product, locale }: Props) {
 
   return (
     <Link href={`/${locale}/products/${product.handle}`} className="group block">
-      <div className="aspect-square relative overflow-hidden rounded-lg bg-gray-100">
+      <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
         {product.featuredImage ? (
           <Image
             src={product.featuredImage.url}
@@ -26,21 +26,21 @@ export function ProductCard({ product, locale }: Props) {
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
             No image
           </div>
         )}
         {!product.availableForSale && (
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <span className="text-white text-sm font-medium">Out of Stock</span>
+          <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
+            <span className="text-background text-sm font-medium">Out of Stock</span>
           </div>
         )}
       </div>
       <div className="mt-2 space-y-0.5">
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:underline">
+        <h3 className="text-sm font-medium text-foreground line-clamp-2 group-hover:underline">
           {product.title}
         </h3>
-        <p className="text-sm text-gray-500">{price}</p>
+        <p className="text-sm text-muted-foreground">{price}</p>
       </div>
     </Link>
   )

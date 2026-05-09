@@ -26,7 +26,7 @@ export default async function HomePage({
             <h2 className="text-2xl font-bold">{t('home.shopCollections')}</h2>
             <Link
               href={`/${locale}/collections`}
-              className="text-sm text-gray-600 hover:text-gray-900 hover:underline"
+              className="text-sm text-muted-foreground hover:text-foreground hover:underline"
             >
               {t('home.viewAll')}
             </Link>
@@ -38,7 +38,7 @@ export default async function HomePage({
                 href={`/${locale}/collections/${collection.handle}`}
                 className="group text-center"
               >
-                <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden mb-2">
+                <div className="aspect-square relative bg-muted rounded-lg overflow-hidden mb-2">
                   {collection.image ? (
                     <Image
                       src={collection.image.url}
@@ -48,7 +48,7 @@ export default async function HomePage({
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-2xl">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl">
                       🛍
                     </div>
                   )}

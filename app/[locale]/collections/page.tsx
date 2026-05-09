@@ -36,7 +36,7 @@ export default async function CollectionsPage({
             href={`/${locale}/collections/${collection.handle}`}
             className="group"
           >
-            <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden mb-3">
+            <div className="aspect-square relative bg-muted rounded-lg overflow-hidden mb-3">
               {collection.image ? (
                 <Image
                   src={collection.image.url}
@@ -46,14 +46,14 @@ export default async function CollectionsPage({
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl">
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-4xl">
                   🛍
                 </div>
               )}
             </div>
             <h2 className="font-semibold group-hover:underline">{collection.title}</h2>
             {collection.description && (
-              <p className="text-sm text-gray-500 mt-1 line-clamp-2">{collection.description}</p>
+              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{collection.description}</p>
             )}
           </Link>
         ))}
