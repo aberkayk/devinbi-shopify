@@ -30,29 +30,45 @@ export default async function CollectionPage({ params, searchParams }: Props) {
 
   if (!collection) notFound()
 
+  const currentCount = products.length + (after ? 24 : 0)
+
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold mb-2">{collection.title}</h1>
-      {collection.description && (
-        <p className="text-muted-foreground mb-8 max-w-2xl">{collection.description}</p>
-      )}
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <div className="mb-10 sm:mb-12 border-b border-border pb-8">
+        <p className="eyebrow text-muted-foreground mb-2">{t('allCollections')}</p>
+        <div className="flex items-baseline justify-between gap-4">
+          <div>
+            <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
+              {collection.title}
+            </h1>
+            {collection.description && (
+              <p className="text-[13px] text-muted-foreground mt-3 max-w-xl">
+                {collection.description}
+              </p>
+            )}
+          </div>
+          <span className="eyebrow text-muted-foreground shrink-0">
+            {currentCount} {t('products')}
+          </span>
+        </div>
+      </div>
 
       {products.length === 0 ? (
-        <p className="text-muted-foreground py-12 text-center">{t('noProducts')}</p>
+        <p className="text-muted-foreground py-16 text-center">{t('noProducts')}</p>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} locale={locale} />
             ))}
           </div>
           {pageInfo.hasNextPage && (
-            <div className="mt-10 flex justify-center">
+            <div className="mt-14 flex justify-center">
               <Link
                 href={`/${locale}/collections/${handle}?after=${pageInfo.endCursor}`}
-                className="px-6 py-2.5 border border-border rounded-lg text-sm font-medium hover:bg-muted transition-colors"
+                className="eyebrow text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
               >
-                {t('loadMore')}
+                {t('loadMore')} ({currentCount} of {currentCount + 8})
               </Link>
             </div>
           )}

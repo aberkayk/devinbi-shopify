@@ -9,38 +9,49 @@ type Props = {
 
 export function ProductCard({ product, locale }: Props) {
   const { minVariantPrice } = product.priceRange
-  const price = parseFloat(minVariantPrice.amount).toLocaleString(locale, {
-    style: 'currency',
-    currency: minVariantPrice.currencyCode,
-  })
+  const amount = parseFloat(minVariantPrice.amount).toFixed(2)
+  const price = `${minVariantPrice.currencyCode} ${amount}`
+
+  const firstVariant = product.variants.nodes[0]
+  const subtitle =
+    firstVariant?.title && firstVariant.title !== 'Default Title'
+      ? firstVariant.title
+      : null
 
   return (
     <Link href={`/${locale}/products/${product.handle}`} className="group block">
-      <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
+      <div className="aspect-square relative overflow-hidden bg-muted mb-3">
         {product.featuredImage ? (
           <Image
             src={product.featuredImage.url}
             alt={product.featuredImage.altText ?? product.title}
             fill
-            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-            No image
+            —
           </div>
         )}
         {!product.availableForSale && (
-          <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center">
-            <span className="text-background text-sm font-medium">Out of Stock</span>
+          <div className="absolute bottom-2 left-2">
+            <span className="eyebrow bg-muted text-muted-foreground px-2 py-1 text-[10px]">
+              Out of stock
+            </span>
           </div>
         )}
       </div>
-      <div className="mt-2 space-y-0.5">
-        <h3 className="text-sm font-medium text-foreground line-clamp-2 group-hover:underline">
-          {product.title}
-        </h3>
-        <p className="text-sm text-muted-foreground">{price}</p>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-[14px] text-foreground group-hover:underline underline-offset-2 truncate">
+            {product.title}
+          </p>
+          {subtitle && (
+            <p className="text-[13px] text-muted-foreground mt-0.5 truncate">{subtitle}</p>
+          )}
+        </div>
+        <p className="text-[14px] text-foreground shrink-0 tabular-nums">{price}</p>
       </div>
     </Link>
   )

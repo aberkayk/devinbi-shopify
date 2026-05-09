@@ -1,4 +1,3 @@
-// app/[locale]/collections/page.tsx
 import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -27,33 +26,51 @@ export default async function CollectionsPage({
   ])
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold mb-8">{t('allCollections')}</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <div className="mb-10 sm:mb-14 flex items-baseline justify-between border-b border-border pb-8">
+        <div>
+          <p className="eyebrow text-muted-foreground mb-2">Index</p>
+          <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
+            {t('allCollections')}
+          </h1>
+          <p className="text-[13px] text-muted-foreground mt-3">
+            Six families of objects, each curated by our editors. Sized for any home.
+          </p>
+        </div>
+        <span className="eyebrow text-muted-foreground shrink-0 ml-8">
+          {String(collections.length).padStart(2, '0')} Items
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
         {collections.map((collection) => (
           <Link
             key={collection.id}
             href={`/${locale}/collections/${collection.handle}`}
             className="group"
           >
-            <div className="aspect-square relative bg-muted rounded-lg overflow-hidden mb-3">
+            <div className="aspect-square relative bg-muted overflow-hidden mb-3">
               {collection.image ? (
                 <Image
                   src={collection.image.url}
                   alt={collection.image.altText ?? collection.title}
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-4xl">
-                  🛍
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
+                  ◻
                 </div>
               )}
             </div>
-            <h2 className="font-semibold group-hover:underline">{collection.title}</h2>
+            <p className="text-[14px] text-foreground group-hover:underline underline-offset-2">
+              {collection.title}
+            </p>
             {collection.description && (
-              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{collection.description}</p>
+              <p className="text-[13px] text-muted-foreground mt-0.5 line-clamp-2">
+                {collection.description}
+              </p>
             )}
           </Link>
         ))}

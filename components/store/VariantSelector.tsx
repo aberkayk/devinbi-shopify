@@ -59,34 +59,61 @@ export function VariantSelector({ options, variants, onVariantChange }: Props) {
   if (isSingleVariant) return null
 
   return (
-    <div className="space-y-4">
-      {options.map((option) => (
-        <div key={option.id}>
-          <p className="text-sm font-medium text-foreground mb-2">{option.name}</p>
-          <div className="flex flex-wrap gap-2">
-            {option.values.map((value) => {
-              const available = isAvailable(variants, selected, option.name, value)
-              const active = selected[option.name] === value
-              return (
-                <button
-                  key={value}
-                  onClick={() => handleSelect(option.name, value)}
-                  disabled={!available}
-                  className={`px-3 py-1.5 text-sm border rounded-md transition-colors ${
-                    active
-                      ? 'border-primary bg-primary text-primary-foreground'
-                      : available
-                      ? 'border-border hover:border-primary'
-                      : 'border-border text-muted-foreground cursor-not-allowed line-through'
-                  }`}
-                >
-                  {value}
-                </button>
-              )
-            })}
+    <div className="space-y-5">
+      {options.map((option) => {
+        const isColor = option.name.toLowerCase() === 'color' || option.name.toLowerCase() === 'colour'
+        return (
+          <div key={option.id}>
+            <p className="eyebrow text-muted-foreground mb-2.5">
+              {option.name}
+              <span className="normal-case font-sans tracking-normal text-foreground ml-2">
+                — {selected[option.name]}
+              </span>
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {option.values.map((value) => {
+                const available = isAvailable(variants, selected, option.name, value)
+                const active = selected[option.name] === value
+
+                if (isColor) {
+                  return (
+                    <button
+                      key={value}
+                      onClick={() => handleSelect(option.name, value)}
+                      disabled={!available}
+                      aria-label={value}
+                      title={value}
+                      className={`w-8 h-8 rounded-sm border-2 transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                        active ? 'border-foreground' : 'border-transparent hover:border-border'
+                      }`}
+                      style={{ backgroundColor: value.toLowerCase() }}
+                    >
+                      <span className="sr-only">{value}</span>
+                    </button>
+                  )
+                }
+
+                return (
+                  <button
+                    key={value}
+                    onClick={() => handleSelect(option.name, value)}
+                    disabled={!available}
+                    className={`px-3 py-1.5 eyebrow border transition-colors ${
+                      active
+                        ? 'border-foreground bg-primary text-primary-foreground'
+                        : available
+                        ? 'border-border text-foreground hover:border-foreground'
+                        : 'border-border text-muted-foreground cursor-not-allowed line-through'
+                    }`}
+                  >
+                    {value}
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

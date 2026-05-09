@@ -25,6 +25,10 @@ export function ProductForm({ product }: Props) {
     ? product.availableForSale
     : (selectedVariant?.availableForSale ?? false)
 
+  const priceLabel = selectedVariant
+    ? ` · ${selectedVariant.price.currencyCode} ${parseFloat(selectedVariant.price.amount).toFixed(2)}`
+    : ''
+
   return (
     <div className="space-y-4">
       <VariantSelector
@@ -32,13 +36,18 @@ export function ProductForm({ product }: Props) {
         variants={product.variants.nodes}
         onVariantChange={setSelectedVariant}
       />
-      <button
-        disabled={!available}
-        data-variant-id={selectedVariant?.id}
-        className="w-full py-3 px-6 bg-primary text-primary-foreground font-medium rounded-lg disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed hover:bg-primary/80 transition-colors"
-      >
-        {available ? t('addToCart') : t('outOfStock')}
-      </button>
+      <div className="space-y-2">
+        <button
+          disabled={!available}
+          data-variant-id={selectedVariant?.id}
+          className="w-full py-3 px-6 bg-primary text-primary-foreground eyebrow disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+        >
+          {available ? `${t('addToCart')}${priceLabel}` : t('outOfStock')}
+        </button>
+        <button className="w-full py-3 px-6 border border-border eyebrow text-foreground hover:bg-muted transition-colors">
+          Save for later
+        </button>
+      </div>
     </div>
   )
 }
