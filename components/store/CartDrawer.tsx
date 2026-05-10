@@ -81,7 +81,7 @@ export function CartDrawer({ locale, cartLabel }: Props) {
       <button
         onClick={() => setIsOpen(true)}
         aria-label={cartLabel}
-        className="text-muted-foreground hover:text-foreground transition-colors"
+        className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
       >
         <BagIcon />
       </button>

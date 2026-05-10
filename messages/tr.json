@@ -9,7 +9,15 @@
   "home": {
     "featuredProducts": "Öne Çıkan Ürünler",
     "shopCollections": "Koleksiyonlara Göz At",
-    "viewAll": "Tümünü Gör"
+    "viewAll": "Tümünü Gör",
+    "ticker": [
+      "$120 üzeri ücretsiz kargo",
+      "Güvenli ödeme",
+      "30 gün iade",
+      "Dünya geneli teslimat",
+      "Orijinal ürünler",
+      "Müşteri desteği"
+    ]
   },
   "collection": {
     "allCollections": "Tüm Koleksiyonlar",

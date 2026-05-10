@@ -7,6 +7,14 @@
     "account": "Mein Konto"
   },
   "home": {
+    "ticker": [
+      "Kostenloser Versand ab 120 €",
+      "Sicherer Checkout",
+      "30 Tage Rückgabe",
+      "Weltweite Lieferung",
+      "Originalprodukte",
+      "Kundensupport"
+    ],
     "featuredProducts": "Empfohlene Produkte",
     "shopCollections": "Kollektionen entdecken",
     "viewAll": "Alle anzeigen"

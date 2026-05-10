@@ -4,6 +4,8 @@ import { getTranslations } from "next-intl/server";
 import { SearchInput } from "@/components/layout/SearchInput";
 import { getShop } from "@/lib/shopify/queries/shop";
 import { CartDrawer } from "@/components/store/CartDrawer";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { ScrollNavbar } from "@/components/layout/ScrollNavbar";
 
 type Props = {
   locale: string;
@@ -33,8 +35,8 @@ export async function Navbar({ locale }: Props) {
   const [t, shop] = await Promise.all([getTranslations("nav"), getShop()]);
 
   return (
-    <header className="border-b border-border bg-background sticky top-0 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center gap-4">
+    <ScrollNavbar>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-4">
         {/* ── Left: brand + nav links ──────────────────────── */}
         <div className="flex items-center gap-6 flex-1 min-w-0">
           <Link
@@ -68,8 +70,9 @@ export async function Navbar({ locale }: Props) {
           </Suspense>
         </div>
 
-        {/* ── Right: account + cart icons ──────────────────── */}
+        {/* ── Right: language + account + cart ────────────── */}
         <div className="flex-1 flex justify-end items-center gap-4">
+          <LanguageSwitcher locale={locale} />
           <Link
             href={`/${locale}/account`}
             aria-label={t("account")}
@@ -80,6 +83,6 @@ export async function Navbar({ locale }: Props) {
           <CartDrawer locale={locale} cartLabel={t("cart")} />
         </div>
       </div>
-    </header>
+    </ScrollNavbar>
   );
 }

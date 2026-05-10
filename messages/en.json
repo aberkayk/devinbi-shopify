@@ -9,7 +9,15 @@
   "home": {
     "featuredProducts": "Featured Products",
     "shopCollections": "Shop Collections",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "ticker": [
+      "Free shipping over $120",
+      "Secure checkout",
+      "30-day returns",
+      "Worldwide delivery",
+      "Authentic products",
+      "Customer support"
+    ]
   },
   "collection": {
     "allCollections": "All Collections",

@@ -18,12 +18,18 @@ function getLocale(request: NextRequest): string {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  const pathnameHasLocale = locales.some(
+  const detectedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
-  if (pathnameHasLocale) return NextResponse.next()
+  if (detectedLocale) {
+    // Tell next-intl which locale is active
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-next-intl-locale', detectedLocale)
+    return NextResponse.next({ request: { headers: requestHeaders } })
+  }
 
+  // No locale in URL — redirect to detected locale
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)

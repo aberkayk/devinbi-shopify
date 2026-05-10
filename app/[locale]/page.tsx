@@ -6,15 +6,6 @@ import { getCollections } from '@/lib/shopify/queries/collections'
 import { getShop } from '@/lib/shopify/queries/shop'
 import { ProductCard } from '@/components/store/ProductCard'
 
-const TICKER_ITEMS = [
-  'Free shipping over $120',
-  'Secure checkout',
-  '30-day returns',
-  'Worldwide delivery',
-  'Authentic products',
-  'Customer support',
-]
-
 export default async function HomePage({
   params,
 }: {
@@ -28,7 +19,8 @@ export default async function HomePage({
     getShop(),
   ])
 
-  const tickerText = [...TICKER_ITEMS, ...TICKER_ITEMS]
+  const tickerItems = t.raw('home.ticker') as string[]
+  const tickerText = [...tickerItems, ...tickerItems]
     .map((item) => `${item}  ·  `)
     .join('')
 

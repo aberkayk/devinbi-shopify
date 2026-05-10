@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { getProduct } from '@/lib/shopify/queries/products'
 import { ProductGallery } from '@/components/store/ProductGallery'
 import { ProductForm } from '@/components/store/ProductForm'
+import { ProductAccordion } from '@/components/store/ProductAccordion'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -93,33 +94,21 @@ export default async function ProductPage({ params }: Props) {
 
           <ProductForm product={product} />
 
-          {/* Description accordion (static open) */}
-          {product.descriptionHtml && (
-            <div className="mt-8 border-t border-border pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-[16px] text-foreground">{t('description')}</h2>
-                <span className="text-muted-foreground">−</span>
-              </div>
-              <div
-                className="text-[14px] text-muted-foreground leading-relaxed [&_ul]:list-disc [&_ul]:pl-4 [&_ul]:space-y-1"
-                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
-              />
-            </div>
-          )}
-
-          {/* Static accordions */}
-          <div className="mt-4 border-t border-border">
-            <div className="flex items-center justify-between py-4 cursor-default">
-              <span className="text-[16px] text-foreground">Shipping &amp; returns</span>
-              <span className="text-muted-foreground">+</span>
-            </div>
-          </div>
-          <div className="border-t border-border">
-            <div className="flex items-center justify-between py-4 cursor-default">
-              <span className="text-[16px] text-foreground">Care</span>
-              <span className="text-muted-foreground">+</span>
-            </div>
-          </div>
+          <ProductAccordion
+            items={[
+              ...(product.descriptionHtml
+                ? [{ title: t('description'), content: product.descriptionHtml, html: true, defaultOpen: true }]
+                : []),
+              {
+                title: 'Shipping & Returns',
+                content: 'We offer free standard shipping on orders over $120. Express delivery available at checkout. Returns accepted within 30 days of delivery — items must be unused and in original packaging.',
+              },
+              {
+                title: 'Care Instructions',
+                content: 'Please refer to the care label on the product. When in doubt, hand wash in cold water and lay flat to dry. Avoid bleach and direct heat.',
+              },
+            ]}
+          />
         </div>
       </div>
     </main>
