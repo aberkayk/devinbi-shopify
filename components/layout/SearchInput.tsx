@@ -3,6 +3,25 @@
 import { useState, useEffect, useRef, useTransition } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 
+function SearchIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  )
+}
+
 type Props = {
   locale: string
 }
@@ -70,8 +89,8 @@ export function SearchInput({ locale }: Props) {
 
   return (
     <>
-      {/* ── Desktop: inline border-bottom input ─────────────── */}
-      <div className="hidden sm:flex items-center">
+      {/* ── Desktop: inline border-bottom input + icon ──────── */}
+      <div className="hidden sm:flex items-center border-b border-border focus-within:border-foreground transition-colors group">
         <input
           ref={desktopInputRef}
           type="search"
@@ -82,14 +101,20 @@ export function SearchInput({ locale }: Props) {
           spellCheck={false}
           autoComplete="off"
           className={[
-            'bg-transparent border-b border-border',
-            'focus:border-foreground outline-none transition-[width,border-color] duration-200',
+            'bg-transparent outline-none',
             'eyebrow text-foreground placeholder:text-muted-foreground',
-            'py-0.5 w-36 focus:w-52',
-            // hide browser clear button
+            'py-0.5 w-36 focus:w-52 transition-[width] duration-200',
             '[&::-webkit-search-cancel-button]:hidden',
           ].join(' ')}
         />
+        <button
+          tabIndex={-1}
+          onClick={() => { if (debounceRef.current) clearTimeout(debounceRef.current); navigate(query) }}
+          aria-label="Search"
+          className="pl-1.5 pb-0.5 text-muted-foreground group-focus-within:text-foreground transition-colors"
+        >
+          <SearchIcon />
+        </button>
       </div>
 
       {/* ── Mobile: icon → full-width overlay ───────────────── */}
@@ -103,7 +128,7 @@ export function SearchInput({ locale }: Props) {
 
       {mobileOpen && (
         <div className="fixed inset-x-0 top-0 z-50 h-12 bg-background border-b border-border flex items-center gap-3 px-4">
-          <span className="text-muted-foreground shrink-0 leading-none">⌕</span>
+          <span className="text-muted-foreground shrink-0"><SearchIcon /></span>
           <input
             ref={mobileInputRef}
             type="search"
