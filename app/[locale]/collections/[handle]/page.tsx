@@ -15,7 +15,11 @@ export async function generateMetadata({ params }: { params: Props['params'] }):
   const { handle, locale } = await params
   const collection = await getCollection(handle, locale)
   if (!collection) return {}
-  return { title: collection.title, description: collection.description || undefined }
+  return {
+    title: collection.title,
+    description: collection.description || undefined,
+    alternates: { canonical: `/${locale}/collections/${handle}` },
+  }
 }
 
 export default async function CollectionPage({ params, searchParams }: Props) {

@@ -5,6 +5,8 @@ import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 import { locales, isRtl, type Locale } from '@/i18n/config'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
+import { getShop } from '@/lib/shopify/queries/shop'
+import type { Metadata } from 'next'
 import '../globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
@@ -17,6 +19,37 @@ const spaceGrotesk = Space_Grotesk({
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const shop = await getShop()
+
+  return {
+    title: {
+      default: shop.name,
+      template: `%s | ${shop.name}`,
+    },
+    description: shop.description || undefined,
+    metadataBase: new URL(shop.primaryDomain.url),
+    openGraph: {
+      type: 'website',
+      siteName: shop.name,
+      locale,
+      description: shop.description || undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  }
 }
 
 export default async function LocaleLayout({
