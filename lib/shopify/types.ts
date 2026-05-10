@@ -71,7 +71,7 @@ export type ShopifyCollection = {
   title: string
   description: string
   image: ShopifyImage | null
-  products: { nodes: ShopifyProduct[]; pageInfo: PageInfo }
+  products: { nodes: Pick<ShopifyProduct, 'id' | 'handle' | 'title' | 'featuredImage'>[]; pageInfo: PageInfo }
 }
 
 export type CartLine = {

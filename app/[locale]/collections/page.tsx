@@ -33,9 +33,6 @@ export default async function CollectionsPage({
           <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
             {t('allCollections')}
           </h1>
-          <p className="text-[13px] text-muted-foreground mt-3">
-            Six families of objects, each curated by our editors. Sized for any home.
-          </p>
         </div>
         <span className="eyebrow text-muted-foreground shrink-0 ml-8">
           {String(collections.length).padStart(2, '0')} Items
@@ -50,19 +47,22 @@ export default async function CollectionsPage({
             className="group"
           >
             <div className="aspect-square relative bg-muted overflow-hidden mb-3">
-              {collection.image ? (
-                <Image
-                  src={collection.image.url}
-                  alt={collection.image.altText ?? collection.title}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
-                  ◻
-                </div>
-              )}
+              {(() => {
+                const img = collection.image ?? collection.products.nodes[0]?.featuredImage ?? null
+                return img ? (
+                  <Image
+                    src={img.url}
+                    alt={img.altText ?? collection.title}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
+                    ◻
+                  </div>
+                )
+              })()}
             </div>
             <p className="text-[14px] text-foreground group-hover:underline underline-offset-2">
               {collection.title}

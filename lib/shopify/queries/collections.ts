@@ -4,6 +4,7 @@ import type { ShopifyCollection } from '../types'
 const COLLECTION_FIELDS = `
   id handle title description
   image { url altText width height }
+  products(first: 1) { nodes { featuredImage { url altText width height } } }
 `
 
 export async function getCollections(first = 20, locale?: string): Promise<ShopifyCollection[]> {

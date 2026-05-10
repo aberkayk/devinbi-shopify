@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getProducts } from '@/lib/shopify/queries/products'
 import { getCollections } from '@/lib/shopify/queries/collections'
+import { getShop } from '@/lib/shopify/queries/shop'
 import { ProductCard } from '@/components/store/ProductCard'
 
 const TICKER_ITEMS = [
@@ -20,14 +21,15 @@ export default async function HomePage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const [t, products, collections] = await Promise.all([
+  const [t, products, collections, shop] = await Promise.all([
     getTranslations(),
     getProducts(8, locale),
     getCollections(6, locale),
+    getShop(),
   ])
 
   const tickerText = [...TICKER_ITEMS, ...TICKER_ITEMS]
-    .map((item) => `${item}  ×  `)
+    .map((item) => `${item}  ×  `)
     .join('')
 
   return (
@@ -35,13 +37,6 @@ export default async function HomePage({
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 sm:pt-16 sm:pb-16">
-          {/* Eyebrow meta row */}
-          <div className="flex items-center justify-between mb-10 sm:mb-14">
-            <span className="eyebrow text-muted-foreground">SS/26 — Edition №14</span>
-            <span className="eyebrow text-muted-foreground hidden sm:block">Released 03.05.2026</span>
-            <span className="eyebrow text-muted-foreground">06 / 24 Sold out</span>
-          </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-20 items-end">
             {/* Headline */}
             <div>
@@ -68,25 +63,27 @@ export default async function HomePage({
 
             {/* Description + stats */}
             <div className="space-y-8">
-              <p className="text-muted-foreground leading-relaxed max-w-sm">
-                A concept store. {products.length > 0 ? `${products.length * 10}+ objects` : '86 objects'} from 24 independent makers across Tokyo, Lisbon, and Yorkshire. New release every quarter, never restocked.
-              </p>
-              <div className="flex items-end gap-10">
-                <div>
-                  <p className="text-[40px] leading-none font-light tabular-nums text-foreground">86</p>
-                  <p className="eyebrow text-muted-foreground mt-2">Objects</p>
+              {shop.description && (
+                <p className="text-muted-foreground leading-relaxed max-w-sm">
+                  {shop.description}
+                </p>
+              )}
+              {collections.length > 0 && (
+                <div className="flex items-end gap-10">
+                  <div>
+                    <p className="text-[40px] leading-none font-light tabular-nums text-foreground">
+                      {String(collections.length).padStart(2, '0')}
+                    </p>
+                    <p className="eyebrow text-muted-foreground mt-2">Collections</p>
+                  </div>
+                  <div>
+                    <p className="text-[40px] leading-none font-light tabular-nums text-foreground">
+                      {String(products.length).padStart(2, '0')}
+                    </p>
+                    <p className="eyebrow text-muted-foreground mt-2">Products</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[40px] leading-none font-light tabular-nums text-foreground">24</p>
-                  <p className="eyebrow text-muted-foreground mt-2">Makers</p>
-                </div>
-                <div>
-                  <p className="text-[40px] leading-none font-light tabular-nums text-foreground">
-                    {String(collections.length).padStart(2, '0')}
-                  </p>
-                  <p className="eyebrow text-muted-foreground mt-2">Collections</p>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -131,19 +128,22 @@ export default async function HomePage({
                   className="group"
                 >
                   <div className="aspect-square relative bg-muted overflow-hidden mb-3">
-                    {collection.image ? (
-                      <Image
-                        src={collection.image.url}
-                        alt={collection.image.altText ?? collection.title}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl">
-                        ◻
-                      </div>
-                    )}
+                    {(() => {
+                      const img = collection.image ?? collection.products.nodes[0]?.featuredImage ?? null
+                      return img ? (
+                        <Image
+                          src={img.url}
+                          alt={img.altText ?? collection.title}
+                          fill
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl">
+                          ◻
+                        </div>
+                      )
+                    })()}
                   </div>
                   <p className="text-[13px] text-foreground group-hover:underline underline-offset-2">
                     {collection.title}

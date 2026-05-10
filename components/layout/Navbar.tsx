@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { SearchInput } from '@/components/layout/SearchInput'
+import { getShop } from '@/lib/shopify/queries/shop'
 
 type Props = {
   locale: string
@@ -27,8 +28,30 @@ function BagIcon() {
   )
 }
 
+function ProfileIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+    </svg>
+  )
+}
+
 export async function Navbar({ locale }: Props) {
-  const t = await getTranslations('nav')
+  const [t, shop] = await Promise.all([
+    getTranslations('nav'),
+    getShop(),
+  ])
 
   return (
     <header className="border-b border-border bg-background sticky top-0 z-30">
@@ -39,10 +62,10 @@ export async function Navbar({ locale }: Props) {
           <Link
             href={`/${locale}`}
             className="flex items-center gap-2 text-foreground shrink-0"
-            aria-label="Field/Index — Home"
+            aria-label={`${shop.name} — Home`}
           >
             <span className="w-3.5 h-3.5 bg-foreground border border-foreground shrink-0" aria-hidden />
-            <span className="eyebrow font-bold tracking-[0.14em]">Field/Index</span>
+            <span className="eyebrow font-bold tracking-[0.14em]">{shop.name}</span>
           </Link>
 
           <nav className="hidden sm:flex items-center gap-6">
@@ -51,12 +74,6 @@ export async function Navbar({ locale }: Props) {
               className="eyebrow text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
             >
               {t('collections')}
-            </Link>
-            <Link
-              href={`/${locale}/account`}
-              className="eyebrow text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
-            >
-              {t('account')}
             </Link>
           </nav>
         </div>
@@ -68,8 +85,15 @@ export async function Navbar({ locale }: Props) {
           </Suspense>
         </div>
 
-        {/* ── Right: cart icon ─────────────────────────────── */}
-        <div className="flex-1 flex justify-end">
+        {/* ── Right: account + cart icons ──────────────────── */}
+        <div className="flex-1 flex justify-end items-center gap-4">
+          <Link
+            href={`/${locale}/account`}
+            aria-label={t('account')}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ProfileIcon />
+          </Link>
           <Link
             href={`/${locale}/cart`}
             aria-label={t('cart')}

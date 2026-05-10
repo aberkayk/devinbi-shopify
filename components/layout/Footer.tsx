@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getShop } from '@/lib/shopify/queries/shop'
 
 type Props = {
   locale: string
@@ -14,7 +15,11 @@ const shopLinks = [
 const atelierLinks = ['Our story', 'Makers', 'Journal', 'Stockists']
 const helpLinks = ['Shipping', 'Returns', 'Care guide', 'Contact']
 
-export function Footer({ locale }: Props) {
+export async function Footer({ locale }: Props) {
+  const shop = await getShop()
+  const domain = shop.primaryDomain.url.replace(/^https?:\/\//, '')
+  const year = new Date().getFullYear()
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -22,11 +27,13 @@ export function Footer({ locale }: Props) {
           <div className="col-span-2 sm:col-span-1">
             <Link href={`/${locale}`} className="flex items-center gap-2 mb-4">
               <span className="w-3.5 h-3.5 bg-foreground border border-foreground shrink-0" aria-hidden />
-              <span className="eyebrow font-bold text-foreground">Field/Index</span>
+              <span className="eyebrow font-bold text-foreground">{shop.name}</span>
             </Link>
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
-              A concept store. Considered objects from independent makers — Tokyo, Lisbon, Yorkshire.
-            </p>
+            {shop.description && (
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
+                {shop.description}
+              </p>
+            )}
           </div>
 
           <div>
@@ -70,9 +77,9 @@ export function Footer({ locale }: Props) {
 
         <div className="border-t border-border mt-12 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <p className="eyebrow text-muted-foreground">
-            © 2026 Field/Index — All rights reserved.
+            © {year} {shop.name} — All rights reserved.
           </p>
-          <p className="eyebrow text-muted-foreground">devinbi.myshopify.com</p>
+          <p className="eyebrow text-muted-foreground">{domain}</p>
         </div>
       </div>
     </footer>
