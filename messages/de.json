@@ -49,8 +49,9 @@
   },
   "search": {
     "placeholder": "Produkte suchen...",
-    "noResults": "Keine Ergebnisse gefunden",
-    "results": "{count} Produkte gefunden"
+    "title": "Suche",
+    "noResults": "Keine Ergebnisse für",
+    "results": "{count} Ergebnisse"
   },
   "common": {
     "loading": "Wird geladen...",

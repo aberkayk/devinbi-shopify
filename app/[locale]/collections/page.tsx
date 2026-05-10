@@ -29,7 +29,7 @@ export default async function CollectionsPage({
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
       <div className="mb-10 sm:mb-14 flex items-baseline justify-between border-b border-border pb-8">
         <div>
-          <p className="eyebrow text-muted-foreground mb-2">Index</p>
+          <p className="eyebrow text-muted-foreground mb-2">{t('allCollections')}</p>
           <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
             {t('allCollections')}
           </h1>

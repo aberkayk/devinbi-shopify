@@ -49,8 +49,9 @@
   },
   "search": {
     "placeholder": "Ürün ara...",
-    "noResults": "Sonuç bulunamadı",
-    "results": "{count} ürün bulundu"
+    "title": "Arama",
+    "noResults": "Sonuç bulunamadı:",
+    "results": "{count} sonuç"
   },
   "common": {
     "loading": "Yükleniyor...",

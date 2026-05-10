@@ -152,6 +152,6 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-heading), var(--font-sans);
-    font-weight: 400;
+    font-weight: 700;
   }
 }

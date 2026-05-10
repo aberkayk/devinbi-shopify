@@ -13,7 +13,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const { locale } = await params
   const { q } = await searchParams
   const t = await getTranslations({ locale, namespace: 'search' })
-  return { title: q ? `${q} — Search` : t('placeholder') }
+  return { title: q ? `${q} — ${t('title')}` : t('title') }
 }
 
 const EMPTY_RESULT = {
@@ -32,7 +32,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
       <div className="border-b border-border pb-8 mb-10">
-        <p className="eyebrow text-muted-foreground mb-2">Search</p>
+        <p className="eyebrow text-muted-foreground mb-2">{t('title')}</p>
         {q ? (
           <>
             <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight break-all">
@@ -41,16 +41,13 @@ export default async function SearchPage({ params, searchParams }: Props) {
             <p className="text-[13px] text-muted-foreground mt-3">
               {products.length > 0
                 ? t('results', { count: products.length })
-                : t('noResults')}
+                : `${t('noResults')} "${q}"`}
             </p>
           </>
         ) : (
-          <>
-            <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
-              The Atelier
-            </h1>
-            <p className="text-[13px] text-muted-foreground mt-3">{t('placeholder')}</p>
-          </>
+          <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">
+            {t('title')}
+          </h1>
         )}
       </div>
 
@@ -68,7 +65,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
                 href={`/${locale}/search?q=${encodeURIComponent(q)}&after=${pageInfo.endCursor}`}
                 className="eyebrow text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
               >
-                Load more
+                {t('results', { count: products.length + 24 })} →
               </Link>
             </div>
           )}

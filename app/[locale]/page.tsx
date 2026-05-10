@@ -7,12 +7,12 @@ import { getShop } from '@/lib/shopify/queries/shop'
 import { ProductCard } from '@/components/store/ProductCard'
 
 const TICKER_ITEMS = [
-  'Free ship > $120',
-  'Made in small runs',
+  'Free shipping over $120',
+  'Secure checkout',
   '30-day returns',
-  'Never restocked',
-  'Carbon-neutral shipping',
-  'Independent makers',
+  'Worldwide delivery',
+  'Authentic products',
+  'Customer support',
 ]
 
 export default async function HomePage({
@@ -29,7 +29,7 @@ export default async function HomePage({
   ])
 
   const tickerText = [...TICKER_ITEMS, ...TICKER_ITEMS]
-    .map((item) => `${item}  ×  `)
+    .map((item) => `${item}  ·  `)
     .join('')
 
   return (
@@ -38,30 +38,26 @@ export default async function HomePage({
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 sm:pt-16 sm:pb-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-20 items-end">
-            {/* Headline */}
             <div>
               <h1 className="text-[clamp(52px,9vw,88px)] leading-[0.95] tracking-tight mb-8">
-                Objects<br />
-                For{' '}
-                <span style={{ color: 'var(--editorial)' }}>Now.</span>
+                {shop.name}
               </h1>
               <div className="flex flex-wrap gap-3">
                 <Link
                   href={`/${locale}/collections`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground eyebrow hover:bg-primary/90 transition-colors"
                 >
-                  Shop Edition →
+                  Shop Now →
                 </Link>
                 <Link
                   href={`/${locale}/collections`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 border border-border eyebrow text-foreground hover:bg-muted transition-colors"
                 >
-                  Index ↗
+                  All Collections
                 </Link>
               </div>
             </div>
 
-            {/* Description + stats */}
             <div className="space-y-8">
               {shop.description && (
                 <p className="text-muted-foreground leading-relaxed max-w-sm">
@@ -96,12 +92,8 @@ export default async function HomePage({
         aria-hidden
       >
         <div className="animate-marquee flex whitespace-nowrap">
-          <span className="eyebrow text-foreground font-medium">
-            {tickerText}
-          </span>
-          <span className="eyebrow text-foreground font-medium" aria-hidden>
-            {tickerText}
-          </span>
+          <span className="eyebrow text-foreground font-medium">{tickerText}</span>
+          <span className="eyebrow text-foreground font-medium" aria-hidden>{tickerText}</span>
         </div>
       </div>
 
@@ -160,17 +152,14 @@ export default async function HomePage({
         <section>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div className="flex items-baseline justify-between mb-8">
-              <div>
-                <p className="eyebrow text-muted-foreground mb-1">Editor's Selection</p>
-                <h2 className="text-[32px] sm:text-[40px] leading-tight">
-                  {t('home.featuredProducts')}
-                </h2>
-              </div>
+              <h2 className="text-[32px] sm:text-[40px] leading-tight">
+                {t('home.featuredProducts')}
+              </h2>
               <Link
                 href={`/${locale}/collections`}
                 className="eyebrow text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
               >
-                Browse All
+                {t('home.viewAll')}
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">

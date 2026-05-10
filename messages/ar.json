@@ -49,8 +49,9 @@
   },
   "search": {
     "placeholder": "ابحث عن منتجات...",
-    "noResults": "لا توجد نتائج",
-    "results": "تم العثور على {count} منتج"
+    "title": "بحث",
+    "noResults": "لا توجد نتائج لـ",
+    "results": "{count} نتيجة"
   },
   "common": {
     "loading": "جارٍ التحميل...",
