@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ShopifyProduct } from '@/lib/shopify/types'
+import { AddToCartIcon } from '@/components/store/AddToCartIcon'
 
 type Props = {
   product: ShopifyProduct
@@ -13,6 +14,7 @@ export function ProductCard({ product, locale }: Props) {
   const price = `${minVariantPrice.currencyCode} ${amount}`
 
   const firstVariant = product.variants.nodes[0]
+  const firstAvailableVariant = product.variants.nodes.find((v) => v.availableForSale) ?? firstVariant
   const subtitle =
     firstVariant?.title && firstVariant.title !== 'Default Title'
       ? firstVariant.title
@@ -41,10 +43,16 @@ export function ProductCard({ product, locale }: Props) {
             </span>
           </div>
         )}
+        {firstAvailableVariant && (
+          <AddToCartIcon
+            merchandiseId={firstAvailableVariant.id}
+            available={product.availableForSale}
+          />
+        )}
       </div>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-[14px] text-foreground group-hover:underline underline-offset-2 truncate">
+          <p className="text-[14px] text-foreground group-hover:underline underline-offset-2">
             {product.title}
           </p>
           {subtitle && (

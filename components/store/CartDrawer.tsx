@@ -189,11 +189,11 @@ export function CartDrawer({ locale, cartLabel }: Props) {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between gap-2">
-                        <div className="min-w-0">
+                        <div className="flex-1 min-w-0 overflow-hidden">
                           <Link
                             href={`/${locale}/products/${merchandise.product.handle}`}
                             onClick={() => setIsOpen(false)}
-                            className="text-[13px] text-foreground hover:underline underline-offset-2 block truncate"
+                            className="text-[13px] text-foreground hover:underline underline-offset-2 block break-words"
                           >
                             {merchandise.product.title}
                           </Link>

@@ -66,10 +66,10 @@ export function CartLines({ lines, locale }: Props) {
             {/* Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
+                <div className="flex-1 min-w-0 overflow-hidden">
                   <Link
                     href={`/${locale}/products/${merchandise.product.handle}`}
-                    className="text-[14px] text-foreground hover:underline underline-offset-2 block truncate"
+                    className="text-[14px] text-foreground hover:underline underline-offset-2 block break-words"
                   >
                     {merchandise.product.title}
                   </Link>
