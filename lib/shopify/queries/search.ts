@@ -5,6 +5,7 @@ const PRODUCT_SUMMARY = `
   id handle title availableForSale
   featuredImage { url altText width height }
   priceRange { minVariantPrice { amount currencyCode } }
+  variants(first: 1) { nodes { title } }
 `
 
 export async function searchProducts(
