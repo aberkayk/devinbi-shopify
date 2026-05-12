@@ -5,6 +5,14 @@ import { getProduct } from '@/lib/shopify/queries/products'
 import { ProductGallery } from '@/components/store/ProductGallery'
 import { ProductForm } from '@/components/store/ProductForm'
 import { ProductAccordion } from '@/components/store/ProductAccordion'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -47,14 +55,21 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 mb-8 eyebrow text-muted-foreground">
-        <Link href={`/${locale}`} className="hover:text-foreground transition-colors">Home</Link>
-        <span>/</span>
-        <Link href={`/${locale}/collections`} className="hover:text-foreground transition-colors">Collections</Link>
-        <span>/</span>
-        <span className="text-foreground">{product.title}</span>
-      </nav>
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/${locale}`} className="eyebrow">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/${locale}/collections`} className="eyebrow">Collections</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="eyebrow">{product.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         {/* Gallery */}

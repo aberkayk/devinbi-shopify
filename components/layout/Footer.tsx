@@ -12,8 +12,11 @@ const shopLinks = [
   { label: 'Gift cards', href: (locale: string) => `/${locale}/collections` },
 ]
 
-const atelierLinks = ['Our story', 'Makers', 'Journal', 'Stockists']
-const helpLinks = ['Shipping', 'Returns', 'Care guide', 'Contact']
+const helpLinks = [
+  { label: 'Shipping', href: (locale: string) => `/${locale}/shipping` },
+  { label: 'Returns', href: (locale: string) => `/${locale}/returns` },
+  { label: 'Contact', href: (locale: string) => `/${locale}/contact` },
+]
 
 export async function Footer({ locale }: Props) {
   const shop = await getShop()
@@ -23,11 +26,12 @@ export async function Footer({ locale }: Props) {
   return (
     <footer className="border-t border-border bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
           <div className="col-span-2 sm:col-span-1">
-            <Link href={`/${locale}`} className="flex items-center gap-2 mb-4">
-              <span className="w-3.5 h-3.5 bg-foreground border border-foreground shrink-0" aria-hidden />
-              <span className="eyebrow font-bold text-foreground">{shop.name}</span>
+            <Link href={`/${locale}`} className="inline-block mb-4">
+              <span className="text-[15px] font-bold tracking-[0.14em] text-foreground">
+                · {shop.name} ·
+              </span>
             </Link>
             {shop.description && (
               <p className="text-[13px] text-muted-foreground leading-relaxed">
@@ -53,22 +57,16 @@ export async function Footer({ locale }: Props) {
           </div>
 
           <div>
-            <p className="eyebrow text-muted-foreground mb-5">Atelier</p>
-            <ul className="space-y-3">
-              {atelierLinks.map((item) => (
-                <li key={item}>
-                  <span className="text-[13px] text-muted-foreground">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
             <p className="eyebrow text-muted-foreground mb-5">Help</p>
             <ul className="space-y-3">
               {helpLinks.map((item) => (
-                <li key={item}>
-                  <span className="text-[13px] text-muted-foreground">{item}</span>
+                <li key={item.label}>
+                  <Link
+                    href={item.href(locale)}
+                    className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>

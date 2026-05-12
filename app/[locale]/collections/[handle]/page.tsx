@@ -4,6 +4,14 @@ import Link from 'next/link'
 import { getCollection } from '@/lib/shopify/queries/collections'
 import { getProductsByCollection } from '@/lib/shopify/queries/products'
 import { ProductCard } from '@/components/store/ProductCard'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import type { Metadata } from 'next'
 
 type Props = {
@@ -38,8 +46,23 @@ export default async function CollectionPage({ params, searchParams }: Props) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <Breadcrumb className="mb-8 sm:mb-10">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/${locale}`} className="eyebrow">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/${locale}/collections`} className="eyebrow">{t('allCollections')}</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="eyebrow">{collection.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="mb-10 sm:mb-12 border-b border-border pb-8">
-        <p className="eyebrow text-muted-foreground mb-2">{t('allCollections')}</p>
         <div className="flex items-baseline justify-between gap-4">
           <div>
             <h1 className="text-[40px] sm:text-[56px] leading-none tracking-tight">

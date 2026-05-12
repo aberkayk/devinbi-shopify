@@ -44,12 +44,8 @@ export async function Navbar({ locale }: Props) {
             className="flex items-center gap-2 text-foreground shrink-0"
             aria-label={`${shop.name} — Home`}
           >
-            <span
-              className="w-3.5 h-3.5 bg-foreground border border-foreground shrink-0"
-              aria-hidden
-            />
-            <span className="eyebrow font-bold tracking-[0.14em]">
-              {shop.name}
+            <span className="text-[15px] font-bold tracking-[0.14em]">
+              · {shop.name} ·
             </span>
           </Link>
 
