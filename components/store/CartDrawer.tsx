@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getCartAction, updateCartAction, removeFromCartAction } from '@/lib/cart'
@@ -33,9 +34,12 @@ type Props = {
 
 export function CartDrawer({ locale, cartLabel }: Props) {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [cart, setCart] = useState<ShopifyCart | null>(null)
   const [loading, setLoading] = useState(false)
   const [isPending, startTransition] = useTransition()
+
+  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
     if (!isOpen) return
@@ -75,17 +79,8 @@ export function CartDrawer({ locale, cartLabel }: Props) {
   const lines = cart?.lines.nodes ?? []
   const currency = cart?.cost.totalAmount.currencyCode ?? ''
 
-  return (
+  const portal = mounted ? createPortal(
     <>
-      {/* Trigger */}
-      <button
-        onClick={() => setIsOpen(true)}
-        aria-label={cartLabel}
-        className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-      >
-        <BagIcon />
-      </button>
-
       {/* Backdrop */}
       <div
         aria-hidden
@@ -280,6 +275,22 @@ export function CartDrawer({ locale, cartLabel }: Props) {
           </div>
         )}
       </div>
+    </>,
+    document.body
+  ) : null
+
+  return (
+    <>
+      {/* Trigger */}
+      <button
+        onClick={() => setIsOpen(true)}
+        aria-label={cartLabel}
+        className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+      >
+        <BagIcon />
+      </button>
+
+      {portal}
     </>
   )
 }
