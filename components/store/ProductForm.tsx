@@ -45,6 +45,7 @@ export function ProductForm({ product }: Props) {
     if (!selectedVariant || !available || isPending) return
     startTransition(async () => {
       await addToCartAction(selectedVariant.id, 1)
+      window.dispatchEvent(new Event('cart:updated'))
       setAdded(true)
       if (timerRef.current) clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => setAdded(false), 1500)

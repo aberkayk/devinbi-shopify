@@ -36,16 +36,30 @@ export function CartDrawer({ locale, cartLabel }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [cart, setCart] = useState<ShopifyCart | null>(null)
+  const [itemCount, setItemCount] = useState(0)
   const [loading, setLoading] = useState(false)
   const [isPending, startTransition] = useTransition()
 
   useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
+    getCartAction().then((c) => setItemCount(c?.totalQuantity ?? 0))
+  }, [])
+
+  useEffect(() => {
+    function onCartUpdated() {
+      getCartAction().then((c) => setItemCount(c?.totalQuantity ?? 0))
+    }
+    window.addEventListener('cart:updated', onCartUpdated)
+    return () => window.removeEventListener('cart:updated', onCartUpdated)
+  }, [])
+
+  useEffect(() => {
     if (!isOpen) return
     setLoading(true)
     getCartAction().then((c) => {
       setCart(c)
+      setItemCount(c?.totalQuantity ?? 0)
       setLoading(false)
     })
   }, [isOpen])
@@ -73,6 +87,7 @@ export function CartDrawer({ locale, cartLabel }: Props) {
           ? await removeFromCartAction(lineId)
           : await updateCartAction(lineId, quantity)
       setCart(updated)
+      setItemCount(updated.totalQuantity)
     })
   }
 
@@ -285,9 +300,14 @@ export function CartDrawer({ locale, cartLabel }: Props) {
       <button
         onClick={() => setIsOpen(true)}
         aria-label={cartLabel}
-        className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+        className="relative text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
       >
         <BagIcon />
+        {itemCount > 0 && (
+          <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-0.5 flex items-center justify-center rounded-full bg-primary text-primary-foreground text-[9px] tabular-nums leading-none">
+            {itemCount > 99 ? '99+' : itemCount}
+          </span>
+        )}
       </button>
 
       {portal}

@@ -19,6 +19,7 @@ export function AddToCartIcon({ merchandiseId, available }: Props) {
 
     startTransition(async () => {
       await addToCartAction(merchandiseId, 1)
+      window.dispatchEvent(new Event('cart:updated'))
       setAdded(true)
       setTimeout(() => setAdded(false), 1500)
     })
