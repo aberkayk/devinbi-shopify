@@ -28,6 +28,8 @@
   "product": {
     "addToCart": "In den Warenkorb",
     "outOfStock": "Nicht verfügbar",
+    "adding": "Wird hinzugefügt…",
+    "added": "Hinzugefügt ✓",
     "price": "Preis",
     "variants": "Optionen",
     "relatedProducts": "Ähnliche Produkte",

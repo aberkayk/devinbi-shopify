@@ -28,6 +28,8 @@
   "product": {
     "addToCart": "أضف إلى السلة",
     "outOfStock": "نفد المخزون",
+    "adding": "جارٍ الإضافة…",
+    "added": "تمت الإضافة ✓",
     "price": "السعر",
     "variants": "الخيارات",
     "relatedProducts": "منتجات مشابهة",

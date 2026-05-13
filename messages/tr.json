@@ -28,6 +28,8 @@
   "product": {
     "addToCart": "Sepete Ekle",
     "outOfStock": "Stokta Yok",
+    "adding": "Ekleniyor…",
+    "added": "Eklendi ✓",
     "price": "Fiyat",
     "variants": "Seçenekler",
     "relatedProducts": "İlgili Ürünler",

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useRef, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { addToCartAction } from '@/lib/cart'
 import { VariantSelector } from './VariantSelector'
@@ -14,6 +14,9 @@ export function ProductForm({ product }: Props) {
   const t = useTranslations('product')
   const [isPending, startTransition] = useTransition()
   const [added, setAdded] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current) }, [])
 
   const isSingleVariant =
     product.options.length === 1 &&
@@ -32,19 +35,26 @@ export function ProductForm({ product }: Props) {
     ? ` · ${selectedVariant.price.currencyCode} ${parseFloat(selectedVariant.price.amount).toFixed(2)}`
     : ''
 
+  function handleVariantChange(variant: ProductVariant | null) {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    setAdded(false)
+    setSelectedVariant(variant)
+  }
+
   function handleAddToCart() {
     if (!selectedVariant || !available || isPending) return
     startTransition(async () => {
       await addToCartAction(selectedVariant.id, 1)
       setAdded(true)
-      setTimeout(() => setAdded(false), 1500)
+      if (timerRef.current) clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(() => setAdded(false), 1500)
     })
   }
 
   function buttonLabel() {
     if (!available) return t('outOfStock')
-    if (isPending) return 'Adding…'
-    if (added) return 'Added ✓'
+    if (isPending) return t('adding')
+    if (added) return t('added')
     return `${t('addToCart')}${priceLabel}`
   }
 
@@ -53,7 +63,7 @@ export function ProductForm({ product }: Props) {
       <VariantSelector
         options={product.options}
         variants={product.variants.nodes}
-        onVariantChange={setSelectedVariant}
+        onVariantChange={handleVariantChange}
       />
       <button
         onClick={handleAddToCart}

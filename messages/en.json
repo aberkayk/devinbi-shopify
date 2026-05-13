@@ -28,6 +28,8 @@
   "product": {
     "addToCart": "Add to Cart",
     "outOfStock": "Out of Stock",
+    "adding": "Adding…",
+    "added": "Added ✓",
     "price": "Price",
     "variants": "Options",
     "relatedProducts": "Related Products",
